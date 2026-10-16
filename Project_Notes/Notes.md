@@ -154,3 +154,13 @@ Windows
    └─ labops-target  ← nome do computador virtual
       └─ Ubuntu Server 26.04.1 LTS  ← Linux instalado dentro dele
 
+      instal => ubuntu-26.04.1-live-server-amd64.iso
+
+_______________________________________________
+e a VMware =>
+
+VMware Workstation Pro for Windows
+
+https://support.broadcom.com/group/ecx/productfiles?subFamily=VMware%20Workstation%20Pro&displayGroup=VMware%20Workstation%20Pro%2026H1%20for%20Windows&release=26H1u1&os=&servicePk=546859&language=EN&freeDownloads=true
+
+____________________________________________
