@@ -163,4 +163,23 @@ VMware Workstation Pro for Windows
 
 https://support.broadcom.com/group/ecx/productfiles?subFamily=VMware%20Workstation%20Pro&displayGroup=VMware%20Workstation%20Pro%2026H1%20for%20Windows&release=26H1u1&os=&servicePk=546859&language=EN&freeDownloads=true
 
+
+temos tudo o que precisamos:
+- VMware Workstation Pro instalado.
+- Ubuntu Server ISO baixado.
+
+vamos criar o “computador virtual” chamado labops-target.
+1. Abra o VMware Workstation.
+2. Clique em Create a New Virtual Machine.
+3. Não abra o ficheiro .iso diretamente pelo Windows.
+4. Envie um print da próxima tela que aparecer.
+Vamos configurar cada opção juntos: tipo de instalação, Ubuntu, disco, RAM, CPU e rede.
+
+
+2 GB de RAM.
+Por que 2 GB?
+- Ubuntu Server não terá interface gráfica pesada.
+- É suficiente para SSH, Python, logs e testes.
+- Deixa bastante RAM para o Windows.
+- Depois podemos reduzir para 1,5 GB se tudo funcionar bem.
 ____________________________________________
