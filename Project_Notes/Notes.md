@@ -175,6 +175,7 @@ vamos criar o “computador virtual” chamado labops-target.
 4. Envie um print da próxima tela que aparecer.
 Vamos configurar cada opção juntos: tipo de instalação, Ubuntu, disco, RAM, CPU e rede.
 
+__________________________________________________
 
 2 GB de RAM.
 Por que 2 GB?
@@ -183,3 +184,10 @@ Por que 2 GB?
 - Deixa bastante RAM para o Windows.
 - Depois podemos reduzir para 1,5 GB se tudo funcionar bem.
 ____________________________________________
+Use network address translation (NAT)
+O NAT é a melhor escolha para nosso laboratório:
+- A VM terá internet para instalar atualizações e ferramentas.
+- Ela usa a conexão Wi‑Fi do seu Windows.
+- Fica mais isolada e segura na sua rede doméstica.
+- Ainda conseguiremos acessar a VM por SSH a partir do seu próprio Windows.
+_______________________________________________
