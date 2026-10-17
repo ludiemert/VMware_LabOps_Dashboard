@@ -222,3 +222,18 @@ Deixe marcada a opção:
 Power on this virtual machine after creation
 Ela fará a VM ligar logo após ser criada e iniciará a instalação do Ubuntu.
 ____________________________________
+Já fizemos:
+- VMware Workstation instalado.
+- VM labops-target criada.
+- Ubuntu Server instalado.
+- 2 GB RAM, 1 CPU e disco virtual de 20 GB.
+- Rede NAT configurada.
+- OpenSSH instalado.
+- Login no servidor pelo console VMware.
+Ainda vamos implementar:
+- SSH do Windows para a VM.
+- Python para controlar e monitorar.
+- Logs.
+- Streamlit dashboard.
+- Métricas, snapshots, rollback e relatórios.
+_____________________________________________________________
