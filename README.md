@@ -26,9 +26,9 @@ This project is made for my IT portfolio and job interview practice.
 
 <p align="center">
   <img
-    src="docs/images/labops-architecture.png"
-    alt="VMware LabOps architecture diagram"
-    width="900"
+    src="Project_Img/VMware LabOps Target Architecture/1_labops-target-architecture.png.png"
+    alt="VMware LabOps target architecture"
+    width="800"
   />
 </p>
 
