@@ -191,3 +191,34 @@ O NAT é a melhor escolha para nosso laboratório:
 - Fica mais isolada e segura na sua rede doméstica.
 - Ainda conseguiremos acessar a VM por SSH a partir do seu próprio Windows.
 _______________________________________________
+No trabalho, essa mesma decisão seria tomada conforme o tipo de servidor e a necessidade da empresa.
+Exemplo:
+Cenário	Disco virtual
+Servidor pequeno de testes	20–40 GB, dinâmico
+Servidor web	40–100 GB
+Banco de dados	100 GB ou mais, com armazenamento rápido
+Servidor de arquivos	Centenas de GB ou TB, com backup e espaço planejado
+
+
+A lógica seria parecida:
+Servidor físico / cluster VMware
+└─ Datastore (armazenamento da empresa)
+   └─ VM de produção
+      ├─ Disco do sistema: Ubuntu + programas
+      ├─ Disco de dados: aplicação ou ficheiros
+      └─ Backup separado
+No nosso laboratório, o “datastore” é simplesmente a pasta no disco do seu notebook. Em uma empresa, normalmente seria um armazenamento central da infraestrutura VMware.
+
+__________________________________________
+
+VM:
+- Nome: labops-target
+- Ubuntu 64-bit
+- Disco: 20 GB dinâmico
+- RAM: 2048 MB
+- Rede: NAT
+- ISO do Ubuntu conectada
+Deixe marcada a opção:
+Power on this virtual machine after creation
+Ela fará a VM ligar logo após ser criada e iniciará a instalação do Ubuntu.
+____________________________________
