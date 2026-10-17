@@ -38,3 +38,47 @@ This project is made for my IT portfolio and job interview practice.
     Python automation and the dashboard will be built step by step.
   </em>
 </p>
+
+
+
+<h4 align="center">Img Project - VMware_LabOps_Dashboard 🥰 🚀</h4>
+
+<div align="center">
+    <table>
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/1_VMware Workstation.png" style="width: 90%;" alt="VMware Workstation">
+                <p style="margin-top: 5px;">VMware Workstation</p>
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/2_labops-target - VMware Workstation_VM_Home.png" style="width: 90%;" alt="VMware Workstation_VM_Home">
+                <p style="margin-top: 5px;">Users_user_language_profiles_BeekeeperStudio</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+  <br/>
+  <br/>
+
+
+<h4 align="center">Img Project - VMware_LabOps_Dashboard 🥰 🚀</h4>
+
+<div align="center">
+    <table>
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/3_labops-target - VMware Workstation.png" style="width: 90%;" alt="VMware Workstation">
+                <p style="margin-top: 5px;">VMware Workstation</p>
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/4_SSH_VM_labops_SSH from Windows to Ubuntu Server.png" style="width: 90%;" alt="SSH_VM_labops_SSH from Windows to Ubuntu Server">
+                <p style="margin-top: 5px;">SSH_VM_labops_SSH from Windows to Ubuntu Server</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+  <br/>
+  <br/>
+
