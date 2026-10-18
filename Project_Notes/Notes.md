@@ -268,3 +268,18 @@ Os botões principais:
 - Delete: remove um snapshot antigo; usaremos apenas quando ele deixar de ser útil.
 - Close: fecha somente esta janela, sem alterar a VM.
 _________________________________________
+Hoje você entra usando senha:
+Windows PowerShell → SSH → Ubuntu VM
+Mas um programa Python não deve guardar sua senha. Então vamos configurar uma chave SSH:
+Windows private key  ──> fica protegida no seu computador
+Windows public key   ──> autorizada dentro da VM Ubuntu
+Depois disso, o Python poderá consultar a VM sem pedir senha a cada execução. Isso é uma prática profissional e será a ponte entre a infraestrutura que você criou e a automação.
+O caminho do projeto será:
+1. Configurar chave SSH para automação
+2. Criar o ambiente Python do projeto no Windows
+3. Fazer um script pequeno de health check via SSH
+4. Salvar resultados em logs
+5. Mostrar as métricas no Streamlit
+6. Adicionar controles de VM, snapshots e relatórios
+Então, o próximo passo concreto é criar sua chave SSH no Windows e adicionar somente a chave pública à VM.
+___________________________________________________________
