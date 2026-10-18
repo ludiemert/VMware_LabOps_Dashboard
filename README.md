@@ -26,7 +26,7 @@ This project is made for my IT portfolio and job interview practice.
 
 <p align="center">
   <img
-    src="Project_Img/VMware LabOps Target Architecture/1_labops-target-architecture.png.png"
+    src="Project_Img/VMware LabOps Target Architecture/2_VMware LabOps Target Architecture Diagram_conect_SSH.png"
     alt="VMware LabOps target architecture"
     width="800"
   />
@@ -74,6 +74,26 @@ This project is made for my IT portfolio and job interview practice.
             <td style="width: 50%; text-align: center;">
                 <img src="Project_Img/4_SSH_VM_labops_SSH from Windows to Ubuntu Server.png" style="width: 90%;" alt="SSH_VM_labops_SSH from Windows to Ubuntu Server">
                 <p style="margin-top: 5px;">SSH_VM_labops_SSH from Windows to Ubuntu Server</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+  <br/>
+  <br/>
+
+  <h4 align="center">Img Project - VMware_LabOps_Dashboard 🥰 🚀</h4>
+
+<div align="center">
+    <table>
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/5_hostnamectl_VM.png" style="width: 90%;" alt="hostnamectl_VM">
+                <p style="margin-top: 5px;">hostnamectl_VM</p>
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/6_VMware LabOps Target Architecture Diagram_conect_SSH.png" style="width: 90%;" alt="VMware LabOps Target Architecture Diagram_conect_SSH">
+                <p style="margin-top: 5px;">VMware LabOps Target Architecture Diagram_conect_SSH</p>
             </td>
         </tr>
     </table>
