@@ -238,3 +238,33 @@ Ainda vamos implementar:
 - Streamlit dashboard.
 - Métricas, snapshots, rollback e relatórios.
 _____________________________________________________________
+
+Um snapshot não é uma foto comum e não é uma pasta criada para você usar. Pense nele como um ponto de retorno da VM:
+Estado atual saudável da VM
+        ↓
+baseline-ssh-ready  ← ponto salvo
+        ↓
+Futuras mudanças: Python, automação, testes…
+
+Ele registra o estado do disco virtual naquele momento e o VMware passa a guardar as mudanças futuras separadamente. Se algo der errado depois, poderemos voltar a este ponto.
+Após clicar em Take Snapshot, veja-o em:
+VM → Snapshot → Snapshot Manager
+Ou use o atalho:
+Ctrl + M
+Lá aparecerá uma árvore com baseline-ssh-ready e o estado atual da VM.
+Os arquivos técnicos do snapshot ficam junto dos arquivos internos da VM no Windows; não precisamos abrir, mover nem enviar esses arquivos ao Git. E lembre: snapshot é recuperação rápida para testes, não substitui backup — ele pode crescer e ocupar espaço conforme você altera a VM.
+
+
+baseline-ssh-ready
+→ antes de configurar uma ferramenta nova
+→ antes de testar uma automação que altera o sistema
+→ antes de mudanças grandes de rede ou serviços
+
+
+snapshot => VMare
+Os botões principais:
+- Take Snapshot…: cria outro ponto de retorno.
+- Go To: volta para o snapshot selecionado. Não clique agora, pois não precisamos reverter nada.
+- Delete: remove um snapshot antigo; usaremos apenas quando ele deixar de ser útil.
+- Close: fecha somente esta janela, sem alterar a VM.
+_________________________________________
