@@ -26,8 +26,8 @@ This project is made for my IT portfolio and job interview practice.
 
 <p align="center">
   <img
-    src="Project_Img/VMware LabOps Target Architecture/2_VMware LabOps Target Architecture Diagram_conect_SSH.png"
-    alt="VMware LabOps target architecture"
+    src="Project_Img/1_VMware LabOps Target Architecture/2_VMware LabOps Target Architecture Diagram_conect_SSH.png"
+    alt="VMware LabOps Target Architecture Diagram_conect_SSH"
     width="800"
   />
 </p>
@@ -92,8 +92,8 @@ This project is made for my IT portfolio and job interview practice.
                 <p style="margin-top: 5px;">hostnamectl_VM</p>
             </td>
             <td style="width: 50%; text-align: center;">
-                <img src="Project_Img/6_VMware LabOps Target Architecture Diagram_conect_SSH.png" style="width: 90%;" alt="VMware LabOps Target Architecture Diagram_conect_SSH">
-                <p style="margin-top: 5px;">VMware LabOps Target Architecture Diagram_conect_SSH</p>
+                <img src="Project_Img/6_first checkpoint_VM_Snapshot.png" style="width: 90%;" alt="first checkpoint_VM_Snapshot">
+                <p style="margin-top: 5px;">First checkpoint_VM_Snapshot</p>
             </td>
         </tr>
     </table>
