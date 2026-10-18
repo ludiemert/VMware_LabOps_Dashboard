@@ -230,8 +230,9 @@ Já fizemos:
 - Rede NAT configurada.
 - OpenSSH instalado.
 - Login no servidor pelo console VMware.
-Ainda vamos implementar:
 - SSH do Windows para a VM.
+
+Ainda vamos implementar:
 - Python para controlar e monitorar.
 - Logs.
 - Streamlit dashboard.
