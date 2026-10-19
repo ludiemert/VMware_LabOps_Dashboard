@@ -39,7 +39,26 @@ This project is made for my IT portfolio and job interview practice.
   </em>
 </p>
 
+<h4 align="center">Img Project - VMware_LabOps_Dashboard 🥰 🚀</h4>
 
+<div align="center">
+    <table>
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/1_VMware LabOps Target Architecture/3_vmware-labops-vm-access-architecture-pt-br.png.png" style="width: 90%;" alt="vmware-labops-vm-access-architecture-pt-br">
+                <p style="margin-top: 5px;">Vmware-labops-vm-access-architecture-pt-br</p>
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="Project_Img/1_VMware LabOps Target Architecture/4_vmware-labops-vm-access-architecture-en.png.png" style="width: 90%;" alt="vmware-labops-vm-access-architecture-en">
+                <p style="margin-top: 5px;">Vmware-labops-vm-access-architecture-en</p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+  <br/>
+  <br/>
+  
 
 <h4 align="center">Img Project - VMware_LabOps_Dashboard 🥰 🚀</h4>
 
