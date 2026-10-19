@@ -283,3 +283,33 @@ O caminho do projeto será:
 6. Adicionar controles de VM, snapshots e relatórios
 Então, o próximo passo concreto é criar sua chave SSH no Windows e adicionar somente a chave pública à VM.
 ___________________________________________________________
+
+Já temos:
+Windows + VMware Workstation + Ubuntu VM + NAT + OpenSSH + SSH test + baseline snapshot
+
+Agora vamos preparar o acesso que o Python usará no futuro:
+Windows → SSH key → Ubuntu VM
+
+Hoje você aprenderá o que é uma chave SSH, como ela substitui a senha do Ubuntu para conexões automatizadas e como testar esse acesso com segurança.
+
+O primeiro passo é criar a chave no PowerShell do Windows, fora da sessão SSH. A VM pode estar ligada ou desligada para criar a chave; só precisaremos ligá-la na etapa de copiar a chave pública.
+
+Digite:
+ssh-keygen -t ed25519 -f "$HOME\.ssh\labops_ed25519" -C "labops-dashboard@windows"
+
+Quando pedir uma passphrase, crie uma frase-senha forte. Não use nem envie a senha do Ubuntu e não mostre essa frase em captura de tela.
+
+Ao terminar, mostre apenas a tela com o resultado. Em seguida, vamos:
+1. Ligar a VM e confirmar seu IP atual
+2. Copiar a chave pública para o Ubuntu
+3. Testar o login SSH por chave
+4. Só então iniciar o ambiente Python do projeto
+_____________________________________________
+
+Agora estamos prontos para copiar a chave pública para a VM. No PowerShell do Windows — não dentro do Ubuntu — execute:
+scp "$HOME\.ssh\labops_ed25519.pub" labops@192.168.26.129:/tmp/labops_ed25519.pub
+
+Ele pedirá a senha atual do usuário labops uma última vez para fazer a cópia. Essa operação envia somente a chave pública, nunca a chave privada.
+
+_______________________________
+
