@@ -313,3 +313,55 @@ Ele pedirá a senha atual do usuário labops uma última vez para fazer a cópia
 
 _______________________________
 
+A chave pública saiu do Windows e está agora, temporariamente, neste local dentro da VM:
+/tmp/labops_ed25519.pub
+Sua chave privada ficou protegida no Windows e não foi enviada.
+Agora, no PowerShell, conecte novamente à VM:
+ssh labops@192.168.26.129
+
+
+Primeiro você precisa entrar na VM novamente. No PowerShell, digite:
+ssh labops@192.168.26.129
+Depois do login, o início da linha mudará para:
+labops@labops-target:~$
+
+
+PS C:\Users\user>                 ← Windows
+ssh labops@192.168.26.129         ← abre conexão SSH
+labops@labops-target:~$           ← agora você está na VM
+mkdir -p ~/.ssh                   ← comando dentro da VM
+
+
+Quando aparece:
+labops@labops-target:~$
+isso significa:
+labops          = usuário conectado no Ubuntu
+labops-target   = nome da VM Ubuntu
+~               = pasta pessoal do usuário labops no Ubuntu
+$               = usuário comum, não root
+
+
+Então você está usando uma janela do PowerShell no Windows, mas os comandos enviados depois desse prompt são executados dentro da VM Ubuntu por SSH.
+Seu computador físico
+└── Windows
+    └── PowerShell
+        └── SSH pela rede
+            └── VM VMware
+                └── Ubuntu: labops@labops-target:~$
+________________________________
+
+Pense assim:
+Senha do Ubuntu = senha normal da porta do servidor
+Chave privada   = sua chave física, guardada no Windows
+Chave pública   = autorização instalada na porta do Ubuntu
+Passphrase      = senha para abrir o cofre onde sua chave física fica guardada
+
+Hoje, o Ubuntu ainda aceita você pela senha normal:
+PowerShell → SSH → senha de labops → Ubuntu
+Estamos preparando uma segunda forma de entrada:
+PowerShell/Python → chave privada no Windows
+                → Ubuntu confere a chave pública autorizada
+                → acesso como labops
+
+_______________________________________________
+
