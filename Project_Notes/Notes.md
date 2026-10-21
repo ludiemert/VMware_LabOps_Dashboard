@@ -365,3 +365,31 @@ PowerShell/Python → chave privada no Windows
 
 _______________________________________________
 
+Nossa sequência será:
+1. Ligar a VM e descobrir o IP atual
+2. Entrar na VM pelo PowerShell com a senha normal
+3. Autorizar a chave pública dentro do Ubuntu
+4. Sair e testar o acesso usando a chave
+5. Criar um snapshot novo, se o teste funcionar
+
+______________________________
+
+criar a pasta segura onde o Ubuntu guarda as chaves autorizadas. Ainda dentro desse mesmo prompt, digite:
+mkdir -p ~/.ssh
+Esse comando cria a pasta oculta .ssh na pasta pessoal de labops. O -p significa que não dá erro se ela já existir.
+
+___________________________________________
+na VM, digite:
+
+cat /tmp/labops_ed25519.pub >> ~/.ssh/authorized_keys
+
+O que ele faz:
+cat                           lê a chave pública temporária
+>>                            adiciona o conteúdo ao final de um arquivo
+~/.ssh/authorized_keys        lista de chaves autorizadas para entrar como labops
+Depois disso, o Ubuntu saberá que a chave privada correspondente, guardada no seu Windows, pode autenticar o usuário labops.
+Pressione Enter. Em seguida vamos proteger o arquivo authorized_keys
+
+__________________________________________________________
+
+
