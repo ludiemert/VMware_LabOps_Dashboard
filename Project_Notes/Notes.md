@@ -460,3 +460,23 @@ Revert para ssh-key-auth-ready
 → volta para depois da chave SSH configurada
 
 _________________________________________________________
+
+Fase 2: Python no Windows.
+
+primeiro programa do projeto será pequeno e seguro: ele apenas consultará a VM e mostrará:
+- hostname
+- RAM
+- disco
+- status do serviço SSH
+_________________________________________
+
+vamos usar essa pasta existente e verificar o que ela já contém antes de criar qualquer arquivo.
+No PowerShell, digite:
+
+cd "$HOME\Downloads\VMware_LabOps_Dashboard"
+
+Depois:
+Get-ChildItem -Force
+O primeiro comando entra na pasta do projeto. O segundo lista os arquivos, inclusive arquivos ocultos como .git.
+
+___________________________________________
