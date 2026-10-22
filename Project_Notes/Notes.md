@@ -433,4 +433,30 @@ digite exatamente:
 ssh -i "$HOME\.ssh\labops_ed25519" labops@192.168.26.129
 Se pedir a passphrase, digite a frase-senha que você criou para a chave.
 Não digite a senha do Ubuntu se ela for solicitada
+
+
+Agora a conexão funciona assim:
+Windows private key
+        ↓
+passphrase desbloqueia a chave no Windows
+        ↓
+Ubuntu public key em authorized_keys
+        ↓
+login como labops
 ____________________________________________
+
+temos dois snapshots. ✅
+1. baseline-ssh-ready
+   Ubuntu, OpenSSH e SSH por senha validados
+
+2. ssh-key-auth-ready
+   Chave pública autorizada e login SSH por chave testado
+A barra inferior mostra “Saving state… 30%”, então o segundo snapshot ainda está sendo finalizado. Apenas espere chegar a 100% e não desligue a VM nesse momento.
+Depois você terá dois pontos de retorno:
+Revert para baseline-ssh-ready
+→ volta para antes da autenticação por chave
+
+Revert para ssh-key-auth-ready
+→ volta para depois da chave SSH configurada
+
+_________________________________________________________
