@@ -392,4 +392,22 @@ Pressione Enter. Em seguida vamos proteger o arquivo authorized_keys
 
 __________________________________________________________
 
+na VM:
 
+chmod 600 ~/.ssh/authorized_keys
+
+Isso significa:
+6 = o usuário labops pode ler e alterar o arquivo
+0 = outros usuários não podem acessá-lo
+0 = outros usuários não podem acessá-lo
+É uma regra de segurança do SSH: se esse arquivo estiver aberto demais, o OpenSSH pode recusar usar a chave.
+
+________________________________
+
+Agora remova a cópia temporária da chave pública:
+rm /tmp/labops_ed25519.pub
+Isso não remove a autorização configurada em:
+~/.ssh/authorized_keys
+Remove apenas o arquivo temporário usado na transferência.
+
+_______________________
