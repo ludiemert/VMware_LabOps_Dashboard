@@ -411,3 +411,26 @@ Isso não remove a autorização configurada em:
 Remove apenas o arquivo temporário usado na transferência.
 
 _______________________
+
+o comando completo é necessário:
+
+ssh -i "$HOME\.ssh\labops_ed25519" labops@192.168.26.129
+
+Ele diz claramente:
+use a chave privada labops_ed25519
+para entrar como labops
+na VM 192.168.26.129
+
+_______________________________________________________________
+Agora usamos só um comando completo para testar a chave.
+Se sua tela mostra:
+labops@labops-target:~$
+digite:
+exit
+Quando voltar para:
+PS C:\Users\user>
+digite exatamente:
+ssh -i "$HOME\.ssh\labops_ed25519" labops@192.168.26.129
+Se pedir a passphrase, digite a frase-senha que você criou para a chave.
+Não digite a senha do Ubuntu se ela for solicitada
+____________________________________________
