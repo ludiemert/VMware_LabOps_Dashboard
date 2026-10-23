@@ -480,3 +480,25 @@ Get-ChildItem -Force
 O primeiro comando entra na pasta do projeto. O segundo lista os arquivos, inclusive arquivos ocultos como .git.
 
 ___________________________________________
+criar um arquivo para o Git ignorar arquivos locais e sensíveis.
+
+No VS Code, dentro da raiz do projeto, crie um arquivo chamado exatamente:
+.gitignore
+
+_____________________
+
+owerShell, execute:
+py -m venv .venv
+Esse comando cria a pasta .venv com uma instalação isolada de Python para este projeto.
+
+Quando terminar, execute:
+.\.venv\Scripts\Activate.ps1
+
+Se funcionar, o início do prompt mudará para algo assim:
+
+(.venv) PS C:\Users\user\Downloads\VMware_LabOps_Dashboard>
+Isso significa que o ambiente Python do projeto está ativo.
+
+seu ambiente virtual está ativo. A partir de agora, os pacotes Python deste projeto ficarão isolados dentro de .venv, sem alterar o Python geral do Windows.
+
+_________________________________________
