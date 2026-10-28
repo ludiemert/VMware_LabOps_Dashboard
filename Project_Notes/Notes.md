@@ -502,3 +502,11 @@ Isso significa que o ambiente Python do projeto está ativo.
 seu ambiente virtual está ativo. A partir de agora, os pacotes Python deste projeto ficarão isolados dentro de .venv, sem alterar o Python geral do Windows.
 
 _________________________________________
+
+biblioteca do projeto: Paramiko. Ela permite que Python faça conexões SSH com o Ubuntu.
+Com (.venv) ainda aparecendo no início do prompt, execute:
+python -m pip install paramiko
+
+Depois confirme a instalação:
+python -m pip show paramiko
+_____________________________________
