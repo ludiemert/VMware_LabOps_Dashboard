@@ -509,4 +509,18 @@ python -m pip install paramiko
 
 Depois confirme a instalação:
 python -m pip show paramiko
+
+
+and
+[notice] A new release of pip is available: 26.0.1 -> 26.2.2
+[notice] To update, run: python.exe -m pip install --upgrade pip
 _____________________________________
+
+Fase 2: primeira automação Python.
+Python no Windows
+      ↓ Paramiko + chave SSH
+Ubuntu VM labops-target
+      ↓
+retorna o hostname
+
+___________________________
