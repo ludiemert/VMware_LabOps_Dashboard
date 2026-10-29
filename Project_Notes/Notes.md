@@ -524,3 +524,8 @@ Ubuntu VM labops-target
 retorna o hostname
 
 ___________________________
+A versão do nosso servidor é:
+Ubuntu 26.04.1 LTS
+Kernel: Linux 7.0.0-38-generic
+Architecture: x86-64
+_____________________________
