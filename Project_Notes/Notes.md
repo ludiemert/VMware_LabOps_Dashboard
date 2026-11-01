@@ -529,3 +529,48 @@ Ubuntu 26.04.1 LTS
 Kernel: Linux 7.0.0-38-generic
 Architecture: x86-64
 _____________________________
+.\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
+Esse comando ativa o ambiente virtual Python do projeto apenas para aquela janela do PowerShell.
+O sinal de que funcionou é:
+(.venv) PS C:\Users\user\Downloads\VMware_LabOps_Dashboard>
+Enquanto (.venv) aparece:
+python
+pip
+bibliotecas instaladas
+usam o ambiente isolado do projeto, dentro da pasta .venv.
+Se fechar o terminal e abrir outro, será preciso ativá-lo novamente.
+python src\ssh_hostname_check.py
+python src\ssh_hostname_check.py
+
+Significa:
+python  → execute usando o Python da .venv
+src\ssh_hostname_check.py → execute este arquivo específico
+E o fluxo real que acabou de funcionar foi:
+Python no Windows
+→ chama o SSH do Windows
+→ usa a chave privada
+→ você desbloqueia a chave com a passphrase
+→ conecta ao Ubuntu
+→ executa hostname
+→ recebe labops-target
+
+____________________________________________-
+A próxima etapa é:
+1. Salvar no Git a automação validada
+2. Criar o health check da VM
+3. Consultar hostname, uptime, RAM, disco e SSH
+4. Depois registrar resultados em logs
+5. Por último, mostrar tudo no Streamlit
+_________________________
+próxima automação: criar o arquivo que fará a checagem de saúde da VM.
+No VS Code, dentro da pasta src, crie:
+vm_health_check.py
+
+Depois vamos escrever nele um programa que consulta, em uma única conexão SSH:
+hostname
+uptime
+free -h
+df -h /
+systemctl is-active ssh
+______________________________
