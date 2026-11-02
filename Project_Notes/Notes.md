@@ -575,4 +575,7 @@ df -h /
 systemctl is-active ssh
 
 “Python consegue entrar na VM” para “Python consegue monitorar a VM”.
+
+com a VM ligada e (.venv) ativo, execute:
+python src\vm_health_check.py
 ______________________________
