@@ -573,4 +573,6 @@ uptime
 free -h
 df -h /
 systemctl is-active ssh
+
+“Python consegue entrar na VM” para “Python consegue monitorar a VM”.
 ______________________________
