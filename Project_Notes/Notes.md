@@ -579,3 +579,275 @@ systemctl is-active ssh
 com a VM ligada e (.venv) ativo, execute:
 python src\vm_health_check.py
 ______________________________
+
+
+Você pode explicar esse código como uma automação de monitoramento simples: **o Python roda no Windows, abre uma conexão SSH segura com o Ubuntu e pede informações de saúde do servidor.**
+
+O Python não “vira Linux”; ele apenas envia comandos Linux para a VM via SSH e recebe as respostas.
+
+## 1. Comandos executados dentro do Ubuntu
+
+```python
+HEALTH_CHECK_COMMAND = """
+...
+"""
+```
+
+Essa variável guarda uma sequência de comandos Linux. Eles são enviados juntos para a VM em uma única conexão SSH.
+
+```bash
+echo '=== VM identity ==='
+```
+
+Mostra apenas um título no resultado. Não consulta nem altera nada.
+
+```bash
+hostname
+```
+
+Mostra o nome do servidor:
+
+```text
+labops-target
+```
+
+```bash
+whoami
+```
+
+Mostra qual usuário está executando os comandos:
+
+```text
+labops
+```
+
+```bash
+uptime -p
+```
+
+Mostra há quanto tempo o Ubuntu está ligado, em um formato fácil de ler:
+
+```text
+up 2 hours, 15 minutes
+```
+
+```bash
+echo -n 'CPU cores: '
+nproc
+```
+
+`nproc` mostra quantos processadores lógicos o Linux enxerga. No seu laboratório, o esperado é:
+
+```text
+CPU cores: 1
+```
+
+O `echo -n` escreve o texto sem pular para outra linha, para juntar rótulo e resultado.
+
+```bash
+free -h
+```
+
+Mostra memória RAM e swap. O `-h` significa *human readable*, com MB e GB, em vez de números grandes em bytes.
+
+```bash
+df -h /
+```
+
+Mostra o uso do disco da partição principal `/`:
+
+```text
+total | used | available | use%
+```
+
+```bash
+systemctl is-active ssh
+```
+
+Pergunta ao Ubuntu se o serviço SSH está funcionando. O resultado esperado é:
+
+```text
+active
+```
+
+Nenhum desses comandos altera a VM. Todos são somente de leitura e diagnóstico.
+
+## 2. Python monta o comando SSH
+
+```python
+ssh_command = [
+    "ssh",
+    "-i",
+    str(PRIVATE_KEY_PATH),
+    "-o",
+    "IdentitiesOnly=yes",
+    f"{VM_USER}@{VM_HOST}",
+    HEALTH_CHECK_COMMAND,
+]
+```
+
+Essa lista representa o comando que Python vai executar no Windows.
+
+```text
+ssh
+```
+
+Usa o cliente OpenSSH do Windows.
+
+```text
+-i PRIVATE_KEY_PATH
+```
+
+Indica qual chave privada será usada:
+
+```text
+C:\Users\user\.ssh\labops_ed25519
+```
+
+```text
+-o IdentitiesOnly=yes
+```
+
+Diz ao SSH: “use somente essa identidade/chave”, sem tentar outras chaves do computador.
+
+```text
+labops@192.168.26.129
+```
+
+Significa:
+
+```text
+usuário: labops
+servidor: VM Ubuntu no IP privado NAT
+```
+
+O último item, `HEALTH_CHECK_COMMAND`, é a lista de comandos Linux que será executada remotamente.
+
+## 3. Python executa e recebe o resultado
+
+```python
+result = subprocess.run(
+    ssh_command,
+    text=True,
+    stdout=subprocess.PIPE,
+    check=False,
+)
+```
+
+`subprocess.run()` permite que Python inicie outro programa — neste caso, o `ssh.exe` do Windows.
+
+```text
+text=True
+```
+
+Recebe a resposta como texto, e não como bytes.
+
+```text
+stdout=subprocess.PIPE
+```
+
+Guarda a saída dos comandos Linux dentro de Python, em vez de apenas mostrar tudo no terminal.
+
+```text
+check=False
+```
+
+Impede Python de encerrar automaticamente com erro. Assim, o seu próprio código pode verificar e explicar o problema.
+
+## 4. Validação de erro
+
+```python
+if result.returncode != 0:
+```
+
+Todo comando retorna um código:
+
+```text
+0      → sucesso
+outro  → erro
+```
+
+Se SSH falhar, por exemplo VM desligada, IP incorreto ou chave inválida, Python mostra uma mensagem controlada.
+
+```python
+output = result.stdout.strip()
+```
+
+Pega o resultado retornado pelo Ubuntu e remove espaços ou linhas vazias extras no início e fim.
+
+## 5. `main()` organiza a execução
+
+```python
+def main() -> None:
+```
+
+É a função principal do programa. Ela:
+
+1. mostra que a checagem começou;
+2. chama a função de SSH;
+3. imprime as informações da VM;
+4. mostra uma mensagem clara se ocorrer erro.
+
+```python
+try:
+```
+
+Tenta executar a checagem.
+
+```python
+except RuntimeError as error:
+```
+
+Se algo falhar, não mostra uma mensagem técnica enorme; mostra:
+
+```text
+Error: Health check failed...
+```
+
+## Como explicar em uma entrevista
+
+Você pode dizer:
+
+> “I built a read-only health-check script in Python. It runs on Windows and uses the native SSH client with an Ed25519 private key to access an Ubuntu virtual machine hosted in VMware Workstation. The script runs Linux diagnostic commands for hostname, uptime, CPU cores, memory, disk usage and SSH service status. Python captures the output, checks the SSH exit code and handles connection errors.”
+
+E, em português:
+
+> “Criei um script Python de monitoramento somente de leitura. Ele roda no Windows, usa SSH com chave Ed25519 para acessar a VM Ubuntu no VMware e coleta hostname, uptime, CPU, memória, disco e estado do OpenSSH. O Python valida se a conexão deu certo pelo código de retorno e trata erros de forma controlada.”
+
+______________________________________________________
+monitor funciona e trouxe dados reais:
+VM: labops-target
+User: labops
+Uptime: 22 days
+CPU: 1 core
+RAM: 1.6 GiB total
+Disk: 52% used
+SSH: active
+____________________________
+
+“SSH com chave Ed25519” é o acesso seguro que configuramos para entrar na VM sem colocar a senha do Ubuntu dentro do código.
+SSH       = conexão remota segura entre Windows e Ubuntu
+Ed25519   = tipo moderno e seguro de chave criptográfica SSH
+Quando você executou:
+ssh-keygen -t ed25519 ...
+foram criados dois arquivos:
+labops_ed25519       → chave privada, fica só no Windows
+labops_ed25519.pub   → chave pública, foi colocada no Ubuntu
+O funcionamento é:
+Windows possui a chave privada
+        ↓
+Ubuntu possui a chave pública autorizada
+        ↓
+SSH confirma que as duas correspondem
+        ↓
+entra como usuário labops
+A passphrase protege a chave privada no Windows. Ela não é a senha do Ubuntu e não é enviada para a VM.
+
+Por isso este comando usa a chave:
+ssh -i "$HOME\.ssh\labops_ed25519" labops@192.168.26.129
+-i = use this identity file
+labops_ed25519 = sua chave privada Ed25519
+Para entrevista:
+“I use SSH public key authentication with an Ed25519 key pair. The private key stays on Windows and the public key is authorized on the Ubuntu VM.”
+
+___________________________________
