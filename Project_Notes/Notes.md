@@ -885,3 +885,18 @@ Windows PowerShell
 Agora confirmamos que sua chave Ed25519 funciona manualmente.
 
 _______________________________________
+
+
+A chave está correta; o serviço que guarda a chave desbloqueada não iniciou.
+
+Abra um PowerShell como Administrator e execute, um comando por vez:
+Set-Service -Name ssh-agent -StartupType Manual
+Start-Service -Name ssh-agent
+Get-Service ssh-agent
+O resultado deve mostrar:
+Status: Running
+StartType: Manual
+Depois feche o terminal do VS Code, abra um novo terminal PowerShell nele, ative a .venv novamente:
+.\.venv\Scripts\Activate.ps1
+
+________________________________
