@@ -851,3 +851,37 @@ Para entrevista:
 “I use SSH public key authentication with an Ed25519 key pair. The private key stays on Windows and the public key is authorized on the Ubuntu VM.”
 
 ___________________________________
+A passphrase é a frase-senha que você criou ao executar ssh-keygen. Ela protege o arquivo da sua chave privada no Windows.
+
+Não existe uma “senha da passphrase”. A própria passphrase é a senha/frase secreta.
+Senha Windows       → entra no seu computador
+Senha Ubuntu        → entra como labops usando autenticação por senha
+Passphrase SSH      → desbloqueia a chave privada labops_ed25519 no Windows
+A passphrase não vai para o Ubuntu. Ela apenas permite que o Windows use a sua chave privada.
+
+Sobre o comando:
+ssh -i "$HOME\.ssh\labops_ed25519" -o IdentitiesOnly=yes labops@192.168.26.129 "hostname"
+ssh
+Abre uma conexão remota segura.
+-i "$HOME\.ssh\labops_ed25519"
+-i significa identity file. Diz ao SSH para usar esta chave privada:
+C:\Users\user\.ssh\labops_ed25519
+-o IdentitiesOnly=yes
+Diz: “use somente a chave informada acima; não tente outras chaves existentes no computador”.
+labops@192.168.26.129
+Significa:
+usuário Ubuntu: labops
+servidor Ubuntu: 192.168.26.129
+"hostname"
+É o comando Linux enviado para a VM. Ele roda remotamente no Ubuntu e retorna o nome da máquina:
+labops-target
+Então o fluxo real foi:
+Windows PowerShell
+→ desbloqueia a chave privada com a passphrase
+→ SSH conecta à VM Ubuntu
+→ Ubuntu reconhece a chave pública autorizada
+→ executa hostname
+→ devolve labops-target
+Agora confirmamos que sua chave Ed25519 funciona manualmente.
+
+_______________________________________
