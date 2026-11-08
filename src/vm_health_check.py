@@ -5,6 +5,8 @@ This script runs Linux diagnostic commands through SSH,
 converts the output into structured data and displays a readable summary.
 """
 
+from os import environ
+
 from pathlib import Path
 import subprocess
 
@@ -14,6 +16,9 @@ VM_USER = "labops"
 
 # Private key stored only on the Windows host.
 PRIVATE_KEY_PATH = Path.home() / ".ssh" / "labops_ed25519"
+
+# Native Windows SSH client. It can use the Windows ssh-agent service.
+WINDOWS_SSH_PATH = Path(environ["WINDIR"]) / "System32" / "OpenSSH" / "ssh.exe"
 
 # The Ubuntu VM returns simple key=value lines.
 # This format is easier for Python to read than a terminal table.
@@ -32,7 +37,7 @@ def run_vm_health_check() -> dict[str, str]:
     """Connect through SSH and return structured health data."""
 
     ssh_command = [
-        "ssh",
+        str(WINDOWS_SSH_PATH),
         "-i",
         str(PRIVATE_KEY_PATH),
         "-o",

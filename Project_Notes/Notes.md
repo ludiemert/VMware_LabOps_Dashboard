@@ -948,3 +948,47 @@ O que mudou é que, nesta sessão do Windows, o SSH Agent já tem a chave desblo
 
 Depois de reiniciar o Windows, parar o serviço ou remover a chave do agente, você deverá executar ssh-add de novo.
 _________________________________
+
+agora Python usa exatamente o mesmo SSH nativo do Windows que consegue conversar com o ssh-agent.
+from os import environ
+from os import environ
+os é uma biblioteca padrão do Python. Ela permite acessar informações do sistema operacional.
+
+environ lê variáveis de ambiente do Windows.
+
+Por exemplo:
+environ["WINDIR"]
+retorna normalmente:
+C:\Windows
+WINDOWS_SSH_PATH
+WINDOWS_SSH_PATH = (
+    Path(environ["WINDIR"]) / "System32" / "OpenSSH" / "ssh.exe"
+)
+Essa parte monta este caminho:
+C:\Windows\System32\OpenSSH\ssh.exe
+Ou seja: o Python não usa mais qualquer programa chamado ssh encontrado no computador. Ele usa especificamente o OpenSSH oficial do Windows.
+
+Esse é o SSH que consegue usar o serviço:
+OpenSSH Authentication Agent
+O comando ssh-add
+Você executou algo parecido com:
+& "$env:WINDIR\System32\OpenSSH\ssh-add.exe" "$HOME\.ssh\labops_ed25519"
+Significado:
+&                       → execute este programa
+ssh-add.exe             → adicione uma chave ao SSH Agent
+labops_ed25519          → sua chave privada Ed25519
+Quando você digitou a passphrase, o SSH Agent desbloqueou a chave privada e a manteve disponível na memória do Windows.
+
+Então o fluxo agora é:
+Python
+→ C:\Windows\System32\OpenSSH\ssh.exe
+→ Windows ssh-agent
+→ chave privada já desbloqueada
+→ SSH para Ubuntu
+→ chave pública autorizada na VM
+→ health check retorna dados reais
+Por isso o script não pediu novamente a passphrase nem a senha do Ubuntu.
+
+A chave privada continua protegida no seu disco. O agente só mantém uma versão desbloqueada temporariamente na memória, geralmente até reiniciar o Windows ou remover a chave do agente.
+
+_______________________________
