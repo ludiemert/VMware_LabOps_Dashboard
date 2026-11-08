@@ -900,3 +900,43 @@ Depois feche o terminal do VS Code, abra um novo terminal PowerShell nele, ative
 .\.venv\Scripts\Activate.ps1
 
 ________________________________
+
+O Streamlit sozinho já cria bem:
+sidebar
+cards de métricas
+tabelas
+botões
+abas
+logs
+atualização manual
+Para chegar ao visual exato da imagem — brilhos, setas, diagramas, monitores e layout muito artístico — usamos um pouco de CSS e imagens ilustrativas.
+________________________________
+
+A página real poderia ser organizada assim:
+Sidebar
+├── Lab Overview
+├── Virtual Machines
+├── SSH Access
+├── Health Checks
+├── Logs
+├── Snapshots
+└── Project Architecture
+
+Página principal
+├── Topologia do Lab (imagem/diagrama)
+├── Status da VM e SSH (dados reais)
+├── CPU, RAM, disco e uptime (dados reais)
+└── Último health check / logs (dados reais)
+
+___________________________________________________
+O comando que evitou novos pedidos foi:
+& "$env:WINDIR\System32\OpenSSH\ssh-add.exe" "$HOME\.ssh\labops_ed25519"
+Ele fez isto:
+1. Você digitou a passphrase uma única vez
+2. O SSH Agent desbloqueou sua chave privada
+3. O agente manteve a chave disponível na memória do Windows
+4. Python chamou SSH
+5. SSH pediu ao agente para usar essa chave
+6. Ubuntu validou a chave pública autorizada
+7. A conexão foi liberada como labops
+_________________________________
