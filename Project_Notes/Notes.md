@@ -939,4 +939,12 @@ Ele fez isto:
 5. SSH pediu ao agente para usar essa chave
 6. Ubuntu validou a chave pública autorizada
 7. A conexão foi liberada como labops
+
+Nada foi “desativado” no Ubuntu.
+A senha do usuário labops continua existindo
+A autenticação por senha continua configurada
+A passphrase continua protegendo a chave privada no disco
+O que mudou é que, nesta sessão do Windows, o SSH Agent já tem a chave desbloqueada. Por isso não precisa pedir a passphrase novamente.
+
+Depois de reiniciar o Windows, parar o serviço ou remover a chave do agente, você deverá executar ssh-add de novo.
 _________________________________
