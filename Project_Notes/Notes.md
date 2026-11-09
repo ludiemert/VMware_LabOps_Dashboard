@@ -1013,3 +1013,24 @@ run_vm_health_check()
 para mostrar as métricas reais da labops-target.
 
 ________________________________________
+
+apos add app.py
+
+No terminal com (.venv) ativo, execute:
+streamlit run app.py
+
+
+
+2026-11-09 18:04:08.649 Uvicorn server started on :::8501
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://10.56.27.175:8501
+
+  Help agents write better Streamlit apps?
+  Install the official Streamlit skills by running streamlit skills in your terminal.
+
+
+http://localhost:8501/
+_______________________________
