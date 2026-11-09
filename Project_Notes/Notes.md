@@ -1036,3 +1036,34 @@ http://localhost:8501/
 
 Network URL: http://10.56.27.175:8501
 _______________________________
+
+O Streamlit é perfeito para isso: ele cria a página web usando Python e nós usamos um pouco de CSS apenas para o acabamento visual.
+
+Como funciona:
+streamlit run app.py
+→ inicia um servidor web local no seu Windows
+→ navegador abre http://localhost:8501
+→ Streamlit transforma comandos Python em componentes HTML no navegador
+→ ao clicar em Refresh, o Python roda novamente
+→ Python faz SSH na VM e devolve dados atualizados
+
+_________________________________
+A conexão real do projeto é:
+Browser
+→ Streamlit no Windows
+→ Python health check
+→ Windows SSH client + ssh-agent
+→ Ubuntu VM
+→ métricas reais voltam para a página
+Nós não usamos um CMS atualmente. CMS seria algo como WordPress. Se você quis dizer VM, ela é acessada via SSH, como no fluxo acima.
+___________________________________________________
+
+E ela já é parcialmente responsiva porque o Streamlit adapta automaticamente:
+- largura do conteúdo;
+- sidebar, que pode ser recolhida;
+- colunas e expansores;
+- página para diferentes tamanhos de navegador.
+Mas ainda não podemos chamá-la de “totalmente responsiva” sem testar telas menores. A sua imagem mostra um ponto para melhorar:
+Uptime: 1 days, 15 hour...
+
+____________________________________________

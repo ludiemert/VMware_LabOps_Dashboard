@@ -26,6 +26,86 @@ st.set_page_config(
 )
 
 
+def apply_custom_theme() -> None:
+    """Apply VMware LabOps colors and visual styling."""
+
+    st.markdown(
+        """
+        <style>
+        [data-testid="stAppViewContainer"] {
+            background: radial-gradient(circle at top right, #123b63, #06111f 52%);
+            color: #edf6ff;
+        }
+
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, #071525, #0d2238);
+        }
+
+        [data-testid="stSidebar"] * {
+            color: #e8f4ff;
+        }
+
+        [data-testid="stHeader"] {
+            background: rgba(6, 17, 31, 0.85);
+        }
+
+        h1, h2, h3 {
+            color: #f4f9ff;
+        }
+
+        [data-testid="stMetric"] {
+            background: rgba(11, 35, 58, 0.92);
+            border: 1px solid #2d6595;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        [data-testid="stMetricLabel"] {
+            color: #a9cdec;
+        }
+
+        [data-testid="stMetricValue"] {
+            color: #4de58b;
+        }
+
+        .stButton > button {
+            background: linear-gradient(135deg, #086ee8, #4c31d1);
+            border: 0;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .stButton > button:hover {
+            background: linear-gradient(135deg, #1685ff, #6144e4);
+            color: white;
+        }
+
+        .lab-hero {
+            background: linear-gradient(120deg, #0b2540, #102f50);
+            border: 1px solid #2d6c9f;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            padding: 24px 28px;
+        }
+
+        .lab-hero h1 {
+            margin: 0;
+        }
+
+        .lab-hero p {
+            color: #bbd7ef;
+            margin: 8px 0 0;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+apply_custom_theme()
+
+
 @st.cache_data(ttl=15)
 def load_vm_health() -> dict[str, str]:
     """Read VM health data and cache it for 15 seconds."""
@@ -53,8 +133,17 @@ def main() -> None:
         st.caption("Windows 10 → VMware Workstation → Ubuntu")
 
     # Main page title and short project description.
-    st.title("VMware LabOps Dashboard")
-    st.caption("Real-time health data from Ubuntu Server through SSH")
+    st.markdown(
+        """
+    <section class="lab-hero">
+        <h1>VMware LabOps Dashboard</h1>
+        <p>
+            Windows 10 · VMware Workstation · Ubuntu Server · SSH health checks
+        </p>
+    </section>
+    """,
+        unsafe_allow_html=True,
+    )
 
     # This button clears the cached data and runs a new SSH health check.
     if st.button("Refresh health check"):
