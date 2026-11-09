@@ -992,3 +992,24 @@ Por isso o script não pediu novamente a passphrase nem a senha do Ubuntu.
 A chave privada continua protegida no seu disco. O agente só mantém uma versão desbloqueada temporariamente na memória, geralmente até reiniciar o Windows ou remover a chave do agente.
 
 _______________________________
+
+Agora estamos prontos para iniciar o front real do projeto: o primeiro dashboard Streamlit. 🎉
+
+O caminho será:
+health check estruturado
+→ Streamlit lê os dados reais
+→ cards de VM, CPU, RAM, disco e SSH
+→ navegador mostra o dashboard local
+Primeiro vamos instalar o Streamlit dentro da .venv.
+
+No terminal do VS Code, confirme que aparece (.venv) e execute:
+python -m pip install streamlit
+Depois confirme:
+python -m pip show streamlit
+Após isso, criaremos um arquivo chamado:
+app.py
+na raiz do projeto. Ele será a entrada do dashboard e importará:
+run_vm_health_check()
+para mostrar as métricas reais da labops-target.
+
+________________________________________
