@@ -1031,6 +1031,8 @@ streamlit run app.py
   Help agents write better Streamlit apps?
   Install the official Streamlit skills by running streamlit skills in your terminal.
 
-
+Local URL: http://localhost:8501
 http://localhost:8501/
+
+Network URL: http://10.56.27.175:8501
 _______________________________
