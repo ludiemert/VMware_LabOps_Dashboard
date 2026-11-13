@@ -13,3 +13,5 @@ streamlit run app.py
   Install the official Streamlit skills by running streamlit skills in your terminal.
 
 labops@192.168.26.129: Permission denied (publickey,password).
+
+_______________________________

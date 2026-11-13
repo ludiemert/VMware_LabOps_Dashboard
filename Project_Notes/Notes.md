@@ -1129,3 +1129,20 @@ Rodar o health check e o Streamlit	PowerShell normal, na pasta do projeto, com .
 Dica para aprender: o serviço liga com Start-Service e a chave entra com ssh-add.
 
 ___________________________
+Próximo passo: testar em camadas
+
+Primeiro teste só o health check, sem o Streamlit. Se falhar, o problema fica mais fácil de achar:
+
+powershell
+python src\vm_health_check.py
+
+O esperado é uma lista com hostname, uptime, memória, disco e Status: active.
+
+Se der certo, abra o dashboard:
+
+powershell
+streamlit run app.py
+
+Lembre: é streamlit run app.py, não python app.py.
+
+______________________________________

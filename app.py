@@ -11,6 +11,9 @@ from datetime import datetime
 # Streamlit builds the web dashboard with Python.
 import streamlit as st
 
+# Our JSON Lines logger.
+from src.logger import write_log_event
+
 # These functions come from our SSH health-check script.
 from src.vm_health_check import (
     bytes_to_gib,
@@ -108,10 +111,22 @@ apply_custom_theme()
 
 
 @st.cache_data(ttl=15)
+@st.cache_data(ttl=15)
 def load_vm_health() -> dict[str, str]:
-    """Read VM health data and cache it for 15 seconds."""
+    """Read VM health data, write it to the log and cache it for 15 seconds."""
 
-    return run_vm_health_check()
+    try:
+        health_data = run_vm_health_check()
+
+    except RuntimeError as error:
+        # The check failed: record the error, then pass it on to main(),
+        # which already shows the red message on the page.
+        write_log_event("health_check", "error", {"message": str(error)})
+        raise
+
+    # The check worked: record the real metrics.
+    write_log_event("health_check", "ok", health_data)
+    return health_data
 
 
 def main() -> None:
