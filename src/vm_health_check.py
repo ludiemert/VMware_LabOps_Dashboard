@@ -141,6 +141,24 @@ def format_uptime_short(seconds_as_text: str) -> str:
     return f"{minutes}m"
 
 
+def get_health_status(health_data: dict[str, str]) -> str:
+    """Return "ok", "warning" or "critical" based on the root disk usage."""
+
+    # health_data["root_disk_percent"] is TEXT, like "52".
+    # int() converts it to a number so we can compare it with >=.
+    disk = int(health_data["root_disk_percent"])
+
+    # Python tests from top to bottom and STOPS at the first true condition.
+    # So the strictest rule (90) must come first.
+    if disk >= 90:
+        return "critical"
+    elif disk >= 80:
+        return "warning"
+    else:
+        # Not 90 or more, not 80 or more: the disk is fine.
+        return "ok"
+
+
 def main() -> None:
     """Run the health check and display the structured VM summary."""
 
