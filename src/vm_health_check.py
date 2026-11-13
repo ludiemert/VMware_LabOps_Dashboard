@@ -36,24 +36,36 @@ echo "ssh_status=$(systemctl is-active ssh)"
 def run_vm_health_check() -> dict[str, str]:
     """Connect through SSH and return structured health data."""
 
+    # This list is the exact command Python will run on Windows.
     ssh_command = [
         str(WINDOWS_SSH_PATH),
         "-i",
         str(PRIVATE_KEY_PATH),
         "-o",
         "IdentitiesOnly=yes",
+        "-o",
+        "ConnectTimeout=10",  # give up after 10s if the VM does not answer
+        "-o",
+        "BatchMode=yes",  # never wait for a typed password/passphrase
         f"{VM_USER}@{VM_HOST}",
-        HEALTH_CHECK_COMMAND,
-    ]
+        HEALTH_CHECK_COMMAND,  # the Linux commands that run inside Ubuntu
+    ]  # <- this bracket closes the list
 
-    # stdout contains the key=value data returned by Ubuntu.
-    result = subprocess.run(
-        ssh_command,
-        text=True,
-        stdout=subprocess.PIPE,
-        check=False,
-    )
+    # try/except lets us catch the timeout and show a clear message.
+    try:
+        # stdout contains the key=value data returned by Ubuntu.
+        result = subprocess.run(
+            ssh_command,
+            text=True,
+            stdout=subprocess.PIPE,
+            check=False,
+            timeout=30,  # hard limit: Python stops waiting after 30 seconds
+        )
+    except subprocess.TimeoutExpired as error:
+        # We turn the technical error into our own clear message.
+        raise RuntimeError("SSH timed out. Is the VM powered on?") from error
 
+    # returncode 0 = success. Any other number = SSH or the command failed.
     if result.returncode != 0:
         raise RuntimeError("Health check failed. Read the message above.")
 
@@ -106,6 +118,27 @@ def format_uptime(seconds_as_text: str) -> str:
     minutes, _ = divmod(remaining_seconds, 60)
 
     return f"{days} days, {hours} hours, {minutes} minutes"
+
+
+def format_uptime_short(seconds_as_text: str) -> str:
+    """Convert uptime seconds into a SHORT text that fits inside a card.
+
+    Examples: "1d 15h", "3h 20m", "45m".
+    The long version (format_uptime) stays available for detail areas.
+    """
+
+    # Same math as format_uptime: divmod returns (quotient, remainder).
+    total_seconds = int(seconds_as_text)
+    days, remaining_seconds = divmod(total_seconds, 86_400)
+    hours, remaining_seconds = divmod(remaining_seconds, 3_600)
+    minutes, _ = divmod(remaining_seconds, 60)
+
+    # Show only the two most important units, so the text never gets cut.
+    if days:
+        return f"{days}d {hours}h"
+    if hours:
+        return f"{hours}h {minutes}m"
+    return f"{minutes}m"
 
 
 def main() -> None:

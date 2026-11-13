@@ -15,6 +15,7 @@ import streamlit as st
 from src.vm_health_check import (
     bytes_to_gib,
     format_uptime,
+    format_uptime_short,
     run_vm_health_check,
 )
 
@@ -154,7 +155,9 @@ def main() -> None:
 
     except RuntimeError as error:
         st.error(f"Could not collect VM health data: {error}")
-        st.stop()
+        # "return" leaves main() immediately, so the code below never runs
+        # without data. It is safer than st.stop() alone.
+        return
 
     # SSH active means the VM responded successfully to our health check.
     ssh_is_active = health_data["ssh_status"] == "active"
@@ -183,7 +186,7 @@ def main() -> None:
     )
     uptime_card.metric(
         "Uptime",
-        format_uptime(health_data["uptime_seconds"]),
+        format_uptime_short(health_data["uptime_seconds"]),
     )
 
     st.divider()
@@ -197,6 +200,7 @@ def main() -> None:
         st.write(f"**Hostname:** {health_data['hostname']}")
         st.write(f"**SSH user:** {health_data['username']}")
         st.write("**Operating system:** Ubuntu Server 26.04.1 LTS")
+        st.write(f"**Uptime:** {format_uptime(health_data['uptime_seconds'])}")
         st.write("**Hypervisor:** VMware Workstation")
         st.write("**Virtual disk configured:** 20 GB")
 

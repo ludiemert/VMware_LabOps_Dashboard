@@ -1067,3 +1067,65 @@ Mas ainda não podemos chamá-la de “totalmente responsiva” sem testar telas
 Uptime: 1 days, 15 hour...
 
 ____________________________________________
+
+o serviço do ssh-agent está parado.
+
+O que a mensagem diz
+
+Error connecting to agent: No such file or directory significa que o ssh-add tentou falar com o assistente (o ssh-agent) e não encontrou ninguém. O serviço do Windows não está rodando. Isso é normal depois de reiniciar o computador, porque na primeira vez nós o deixamos como Manual, então ele não liga sozinho.
+
+A pasta onde você está (VMware_LabOps_Dashboard) não importa para esse comando, porque ele usa o caminho completo do programa.
+
+O que fazer
+
+Aqui o Administrator é necessário, mas só para ligar o serviço. Ligar serviços do Windows exige permissão de administrador.
+
+1. Abra um PowerShell como administrador:
+
+Clique no menu Iniciar e digite PowerShell.
+Clique com o botão direito em Windows PowerShell e escolha Run as administrator (Executar como administrador).
+Confirme a janela de permissão com Yes.
+
+2. Nessa janela de administrador, digite só este comando:
+
+powershell
+Start-Service ssh-agent
+
+Se não aparecer nenhuma mensagem, deu certo. Para ter certeza:
+
+powershell
+Get-Service ssh-agent
+
+A coluna Status deve mostrar Running.
+
+3. Se Start-Service reclamar que o serviço está desabilitado, rode antes:
+
+powershell
+Set-Service -Name ssh-agent -StartupType Manual
+Start-Service ssh-agent
+
+4. Feche a janela de administrador. Ela não serve para mais nada.
+
+Volte para o PowerShell normal (o do VS Code)
+
+Agora, no terminal normal, repita:
+
+powershell
+& "$env:WINDIR\System32\OpenSSH\ssh-add.exe" -l
+
+Dessa vez o erro de conexão não deve aparecer. Deve mostrar The agent has no identities, que quer dizer “o assistente está ligado, mas ainda sem chave”. Aí entregue a chave:
+
+powershell
+& "$env:WINDIR\System32\OpenSSH\ssh-add.exe" "$HOME\.ssh\labops_ed25519"
+
+Digite a passphrase (nada aparece enquanto você digita, é normal) e aperte Enter. Depois confirme de novo com -l: deve listar a chave ED25519.
+
+Resumindo quem faz o quê
+Tarefa	Onde
+Ligar o serviço ssh-agent	PowerShell administrador (uma vez)
+Entregar a chave com ssh-add	PowerShell normal
+Rodar o health check e o Streamlit	PowerShell normal, na pasta do projeto, com .venv ativa
+
+Dica para aprender: o serviço liga com Start-Service e a chave entra com ssh-add.
+
+___________________________
