@@ -12,8 +12,6 @@ from datetime import datetime
 import streamlit as st
 
 # Our JSON Lines logger.
-from src.logger import write_log_event
-
 from src.logger import read_recent_events, write_log_event
 
 # These functions come from our SSH health-check script.

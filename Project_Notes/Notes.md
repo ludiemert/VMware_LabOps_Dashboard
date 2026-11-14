@@ -1146,3 +1146,25 @@ streamlit run app.py
 Lembre: é streamlit run app.py, não python app.py.
 
 ______________________________________
+
+tratamento para ver erro:Teste fora do Streamlit, que mostra o erro de forma mais direta (com a .venv ativa):
+
+powershell
+python -c "from src.logger import read_recent_events; print(read_recent_events())"
+
+Se imprimir uma lista com os seus eventos, a função está certa. Se repetir o ImportError, ela ainda não está no arquivo.
+
+_________________________________________________
+Sua pergunta: o import chama a função?
+
+Não. Importar só traz o nome para o arquivo, deixando-o disponível. A função só roda quando você a chama, com parênteses:
+
+python
+from src.logger import read_recent_events, write_log_event   # só traz os nomes
+
+write_log_event("health_check", "ok", {})   # AGORA ela roda (tem parênteses)
+
+Pense assim: importar é tirar a ferramenta da caixa e colocá-la na bancada, e chamar é usá-la.
+
+____________________________________
+
