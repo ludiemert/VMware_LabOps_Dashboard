@@ -46,3 +46,29 @@ def write_log_event(event_type: str, status: str, details: dict) -> None:
         # json.dumps turns the dictionary into one line of JSON text.
         # "\n" ends the line, so the next event starts on a new line.
         log_file.write(json.dumps(event) + "\n")
+
+
+def read_recent_events(limit: int = 10) -> list[dict]:
+    """Read the last events from the log file, newest first."""
+
+    # If the log file does not exist yet, there is nothing to read.
+    if not LOG_FILE.exists():
+        return []
+
+    events = []
+
+    # "r" means read. The "for" loop gives us ONE line at a time.
+    with LOG_FILE.open("r", encoding="utf-8") as log_file:
+        for line in log_file:
+            # strip() removes the "\n" and spaces at the ends.
+            line = line.strip()
+
+            # Skip empty lines.
+            if line:
+                # json.loads is the opposite of json.dumps:
+                # it turns a line of JSON text back into a Python dictionary.
+                events.append(json.loads(line))
+
+    # events[-limit:] keeps only the LAST "limit" items.
+    # reversed() puts the newest event first.
+    return list(reversed(events[-limit:]))

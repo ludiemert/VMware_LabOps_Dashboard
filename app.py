@@ -14,6 +14,8 @@ import streamlit as st
 # Our JSON Lines logger.
 from src.logger import write_log_event
 
+from src.logger import read_recent_events, write_log_event
+
 # These functions come from our SSH health-check script.
 from src.vm_health_check import (
     bytes_to_gib,
@@ -235,6 +237,27 @@ def main() -> None:
         st.caption(
             "Last health check: " + datetime.now().strftime("%d %b %Y, %H:%M:%S")
         )
+
+    # Table with the most recent health checks saved in the log file.
+    st.subheader("Recent health checks")
+
+    rows = []
+
+    for event in read_recent_events():
+        # .get("key", "-") returns "-" when the key does not exist.
+        # Error events have no disk data, so we need this safe version.
+        rows.append(
+            {
+                "time (UTC)": event["timestamp"],
+                "status": event["status"],
+                "disk %": event["details"].get("root_disk_percent", "-"),
+                "ssh": event["details"].get("ssh_status", "-"),
+                "message": event["details"].get("message", ""),
+            }
+        )
+
+    # st.dataframe shows a list of dictionaries as a table.
+    st.dataframe(rows)
 
     # Useful during development: shows the exact values for future logs/API.
     with st.expander("View raw health-check data"):
